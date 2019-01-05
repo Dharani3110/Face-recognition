@@ -51,7 +51,7 @@ def main():
 
     #Make the path relative
     train_image_encoded = []
-    images = os.listdir('/home/soliton/work/SFR/dev/SFR_code/sample_train_images/')
+    images = os.listdir('/home/soliton/work/SFR/dev/SFR_code/Face-recognition/train_images/')
 
 
     '''
@@ -69,7 +69,7 @@ def main():
     for image in images:
         (image_name,ext)= os.path.splitext(image)
         # load the image
-        train_img = face_recognition.load_image_file("sample_train_images/" + image)
+        train_img = face_recognition.load_image_file("train_images/" + image)
         # encode the loaded image into a feature vector
         train_image_encoded.append([face_recognition.face_encodings(train_img)[0], image_name])
     print("here")
@@ -87,15 +87,16 @@ def main():
 
             faces = face_cascade.detectMultiScale(res, 1.3, 5)
             for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                cv2.rectangle(img, (x, y), (x+w, y+h), (0,255, 0), 3)
 
 
                 if (len(faces) != 0):
                     text = recognise_face(test_image, train_image_encoded)
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    cv2.putText(test_image, text, (x,y), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
-            cv2.imshow("Find Your Face :P", test_image)
-            if cv2.waitKey(100) & 0xff == ord('q'):
+                    cv2.rectangle(img,(x,y-35),( x+w, y), (0,255, 0),cv2.FILLED)
+                    font = cv2.FONT_HERSHEY_DUPLEX
+                    cv2.putText(img, text, (x+6,y-6), font, 1, (255,255,255), 1)
+            cv2.imshow("Find Your Face :P", img)
+            if cv2.waitKey(1) & 0xff == ord('q'):
                 break
             else:
                 continue
