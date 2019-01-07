@@ -9,6 +9,7 @@ import face_recognition
 import time
 import numpy as np
 from PIL import Image
+import screeninfo
 
 def recognize_face(test_image, train_images_encoded):
     """
@@ -45,20 +46,27 @@ def main():
     """
     print("------------------ Soliton Face Recognition ------------------\n\n")
 
+    #get screen info
+    screen_detail = screeninfo.get_monitors()[0]
+
     #Make the path relative
     train_image_encoded = []
-    images = os.listdir('/home/soliton/work/SFR/dev/SFR_code/Face-recognition/train_images/')
+    images = os.listdir('/home/soliton/one_shot_learning/Face-recognition/inter_train_images')
+
     # Get a reference to webcam
     cap = cv2.VideoCapture(-1)
+
     #Explain what this xml file is
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    print("Frames per second of webcam is: {0}".format(fps))
 
     #compute the encodings for all train_images
     #print(len(images))
     for image in images:
-        (image_name,ext)= os.path.splitext(image)
+        (image_name, ext)= os.path.splitext(image)
         # load the image
-        train_img = face_recognition.load_image_file("train_images/" + image)
+        train_img = face_recognition.load_image_file("inter_train_images/" + image)
         # encode the loaded image into a feature vector
         train_image_encoded.append([face_recognition.face_encodings(train_img)[0], image_name])
     print("Look into camera!")
@@ -76,15 +84,20 @@ def main():
 
             faces = face_cascade.detectMultiScale(res, 1.3, 5)
             for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x+w, y+h), (0,255, 0), 3)
+                cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 3)
 
 
                 if (len(faces) != 0):
                     text = recognize_face(test_image, train_image_encoded)
-                    cv2.rectangle(img,(x,y-35),( x+w, y), (0,255, 0),cv2.FILLED)
+                    cv2.rectangle(img, (x, y-35), (x+w, y), (0, 255, 0), cv2.FILLED)
                     font = cv2.FONT_HERSHEY_DUPLEX
-                    cv2.putText(img, text, (x+6,y-6), font, 1, (255,255,255), 1)
-            cv2.imshow("Find Your Face :P", img)
+                    cv2.putText(img, text, (x+6, y-6), font, 1, (255, 255, 255), 1)
+            window_name = 'Find Your Face :P'
+            cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
+            cv2.moveWindow(window_name, screen_detail.x - 1, screen_detail.y - 1)
+            cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+            cv2.imshow(window_name, img)
+
             if cv2.waitKey(1) & 0xff == ord('q'):
                 break
             else:
