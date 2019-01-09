@@ -51,7 +51,7 @@ def main():
 
     #Make the path relative
     train_image_encoded = []
-    images = os.listdir('/home/soliton/one_shot_learning/Face-recognition/inter_train_images')
+    images = os.listdir('/home/soliton/work/SFR/dev/SFR_code/Face-recognition/train_images')
 
     # Get a reference to webcam
     cap = cv2.VideoCapture(-1)
@@ -64,9 +64,11 @@ def main():
     #compute the encodings for all train_images
     #print(len(images))
     for image in images:
+
         (image_name, ext)= os.path.splitext(image)
         # load the image
-        train_img = face_recognition.load_image_file("inter_train_images/" + image)
+        train_img = face_recognition.load_image_file("train_images/" + image)
+
         # encode the loaded image into a feature vector
         train_image_encoded.append([face_recognition.face_encodings(train_img)[0], image_name])
     print("Look into camera!")
