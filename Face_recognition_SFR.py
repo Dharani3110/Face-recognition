@@ -11,31 +11,47 @@ import numpy as np
 from PIL import Image
 import screeninfo
 
-def recognize_face(test_image, train_images_encoded):
+import argparse
+import imutils
+import pickle
+import cv2
+ap = argparse.ArgumentParser()
+ap.add_argument("-e", "--encodings", required=True,
+                    help="path to serialized db of facial encodings")
+args = vars(ap.parse_args())
+print("[INFO] loading encodings...")
+data = pickle.loads(open(args["encodings"], "rb").read())
+
+def recognize_face(img):
     """
     Comment here
     :param faces:
     :param test_image:
     :param current_image_encoded:
+
     :return:
     """
-    distances = []
-    cv2.imwrite("face"+".jpg", test_image)
-    test_image_path = 'face.jpg'
-    image_to_be_matched = face_recognition.load_image_file(test_image_path)
+
+    encodings = face_recognition.face_encodings(img)
     try:
-        image_to_be_matched_encoded = face_recognition.face_encodings(image_to_be_matched)[0]
+     for encoding in encodings:
+        match_results=[]
+        for datum in data:
+          match_results.append(face_recognition.compare_faces(datum[0],encoding)[0])
+        name="Unknown"
+        distances=[]
+        if True in match_results:
+            
+            for datum in data:
+                distance=face_recognition.face_distance(encoding,datum[0])
+                distances.append([distance[0],datum[1]])
+            distances.sort(key=lambda x: x[0])
+            name=distances[0][1]
+    #names.append(name)
+     return name
 
-        for train_image_encoded in train_images_encoded:
-            # compute distance between test image and train image
-            distance = face_recognition.face_distance([image_to_be_matched_encoded], train_image_encoded[0])
-            distances.append([distance[0], train_image_encoded[1]])
-
-        distances.sort(key=lambda x: x[0])
-        return distances[0][1]
     except:
-        pass
-
+       pass
 
 
 
@@ -49,30 +65,18 @@ def main():
     #get screen info
     screen_detail = screeninfo.get_monitors()[0]
 
-    #Make the path relative
-    train_image_encoded = []
-    images = os.listdir('/home/soliton/work/SFR/dev/SFR_code/Face-recognition/train_images')
-
     # Get a reference to webcam
     cap = cv2.VideoCapture(-1)
+    cap.set(cv2.CAP_PROP_POS_MSEC,30)
 
     #Explain what this xml file is
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     fps = cap.get(cv2.CAP_PROP_FPS)
     print("Frames per second of webcam is: {0}".format(fps))
 
-    #compute the encodings for all train_images
-    #print(len(images))
-    for image in images:
-
-        (image_name, ext)= os.path.splitext(image)
-        # load the image
-        train_img = face_recognition.load_image_file("train_images/" + image)
-
-        # encode the loaded image into a feature vector
-        train_image_encoded.append([face_recognition.face_encodings(train_img)[0], image_name])
     print("Look into camera!")
-
+    e=np.int32(20)
+    count = 1
     while True:
         # Grab a single frame of video
         ret, test_image = cap.read()
@@ -86,14 +90,24 @@ def main():
 
             faces = face_cascade.detectMultiScale(res, 1.3, 5)
             for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 3)
-
+                #print(x, y, w, h,x - e,x + w + e, y - e,y + h + e)
+                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
                 if (len(faces) != 0):
-                    text = recognize_face(test_image, train_image_encoded)
-                    cv2.rectangle(img, (x, y-35), (x+w, y), (0, 255, 0), cv2.FILLED)
-                    font = cv2.FONT_HERSHEY_DUPLEX
-                    cv2.putText(img, text, (x+6, y-6), font, 1, (255, 255, 255), 1)
+                    #crop_img = img[y - e:y + h + e, x - e:x + w + e]
+                    crop_img = img[y :y + h, x:x + w]
+                    # box = (x, y, w, h)
+                    # crop1 = Image.crop(box)
+                    #im_pil = Image.fromarray(crop_img)
+                    #im_pil.save('crop.png')
+                    # cv2.imwrite('crop' + str(count) + '.', crop_img)
+                    #count += 1
+                    #cv2.imshow('crop', cv2.resize(crop_img,(110,110)))
+                    #cv2.waitKey(0)
+                    text = recognize_face(crop_img)
+                    cv2.rectangle(img, (x, y - 35), (x + w, y), (0, 255, 0), cv2.FILLED)
+                    cv2.putText(img, text, (x+6, y-6),cv2.FONT_HERSHEY_DUPLEX ,0.5, (255, 255, 255), 1)
+
             window_name = 'Find Your Face :P'
             cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
             cv2.moveWindow(window_name, screen_detail.x - 1, screen_detail.y - 1)
