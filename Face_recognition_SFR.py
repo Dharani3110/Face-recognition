@@ -10,7 +10,7 @@ import time
 import numpy as np
 from PIL import Image
 import screeninfo
-
+import matplotlib.pyplot as plt
 import argparse
 import imutils
 import pickle
@@ -75,46 +75,57 @@ def main():
     print("Frames per second of webcam is: {0}".format(fps))
 
     print("Look into camera!")
-    e=np.int32(20)
+    e = np.int32(50)
     count = 1
+    cvt_color = cv2.cvtColor
+    rect = cv2.rectangle
+    equalize_hist = cv2.equalizeHist
+    write_image = cv2.imwrite
+    put_text = cv2.putText
+    show_image = cv2.imshow
+    wait_key = cv2.waitKey
     while True:
         # Grab a single frame of video
         ret, test_image = cap.read()
 
         img = test_image
         if ret:
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            equ = cv2.equalizeHist(gray)
+            gray = cvt_color(img, cv2.COLOR_BGR2GRAY)
+            equ = equalize_hist(gray)
             res = np.hstack((gray, equ))
 
 
             faces = face_cascade.detectMultiScale(res, 1.3, 5)
+            print(len(faces))
             for (x, y, w, h) in faces:
-                #print(x, y, w, h,x - e,x + w + e, y - e,y + h + e)
-                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                # print(x, y, w, h)
+                # rect(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                # crop_img = img[y - e:y + h + e, x - e:x + w + e]
+                crop_img = img[y-e:y+h+e, x-e:x+w+e]
 
-                if (len(faces) != 0):
-                    #crop_img = img[y - e:y + h + e, x - e:x + w + e]
-                    crop_img = img[y :y + h, x:x + w]
-                    # box = (x, y, w, h)
-                    # crop1 = Image.crop(box)
-                    #im_pil = Image.fromarray(crop_img)
-                    #im_pil.save('crop.png')
-                    # cv2.imwrite('crop' + str(count) + '.', crop_img)
-                    #count += 1
-                    #cv2.imshow('crop', cv2.resize(crop_img,(110,110)))
-                    #cv2.waitKey(0)
-                    text = recognize_face(crop_img)
-                    cv2.rectangle(img, (x, y - 35), (x + w, y), (0, 255, 0), cv2.FILLED)
-                    cv2.putText(img, text, (x+6, y-6),cv2.FONT_HERSHEY_DUPLEX ,0.5, (255, 255, 255), 1)
-
+                text = recognize_face(crop_img)
+                if text is not None:
+                    rect(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                    rect(img, (x, y - 35), (x + w, y), (0, 255, 0), cv2.FILLED)
+                    put_text(img, text, (x+6, y-6), cv2.FONT_HERSHEY_DUPLEX , 0.5, (255, 255, 255), 1)
+                    put_text(img, str(len(faces)), (0, 0), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
+                else:
+                    rect(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
+                    put_text(img, 'unknown', (x + 6, y - 6), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
+                try:
+                    show_image('crop', crop_img)
+                    write_image('crop'+str(count % 10)+'.jpg', crop_img)
+                    count += 1
+                    wait_key(10)
+                except cv2.error:
+                    pass
             window_name = 'Find Your Face :P'
             cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
             cv2.moveWindow(window_name, screen_detail.x - 1, screen_detail.y - 1)
             cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-            cv2.imshow(window_name, img)
+            show_image(window_name, img)
 
-            if cv2.waitKey(1) & 0xff == ord('q'):
+            if wait_key(1) & 0xff == ord('q'):
                 break
             else:
                 continue
