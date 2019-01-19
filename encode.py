@@ -5,20 +5,21 @@ from PIL import Image
 from imutils import paths
 import argparse
 import pickle
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--dataset", required=True,
+
+#Get encodings path and dataset path as arguments
+obj = argparse.ArgumentParser()
+obj.add_argument("-i", "--dataset", required=True,
 	help="path to input directory of faces + images")
-ap.add_argument("-e", "--encodings", required=True,
+obj.add_argument("-e", "--encodings", required=True,
 	help="path to serialized db of facial encodings")
-args = vars(ap.parse_args())
+args = vars(obj.parse_args())
 
 imagePaths = list(paths.list_images(args["dataset"]))
 data=[]
 for (i, imagePath) in enumerate(imagePaths):
 
     # extract the person name from the image path
-    print("[INFO] processing image {}/{}".format(i + 1,
-                                                 len(imagePaths)))
+    print("[INFO] processing image {}/{}".format(i + 1,len(imagePaths)))
     (img_name, ext) = os.path.splitext(imagePath)
     (folder, name) = img_name.split("/")
 

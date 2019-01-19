@@ -16,45 +16,56 @@ import pickle
 import cv2
 
 #Get encodings path as argument
-ap = argparse.ArgumentParser()
+obj = argparse.ArgumentParser()
 #Input (python_filename -e path_to_encodings )as argument
-ap.add_argument("-e", "--encodings", required=True,help="path to serialized db of facial encodings")
-args = vars(ap.parse_args())
+obj.add_argument("-e1", "--encodings_large", required=True,help="path to serialized db of facial encodings")
+#obj.add_argument("-e2", "--encodings_small", required=True,help="path to serialized db of facial encodings")
+args = vars(obj.parse_args())
 #Read the encodings from the path_to_encodings provided above
-data= pickle.loads(open(args["encodings"], "rb").read())
-train_images_encodings=data
+data= pickle.loads(open(args["encodings_large"], "rb").read())
+train_images_encodings_large=data
+#data= pickle.loads(open(args["encodings_small"], "rb").read())
+#train_images_encodings_small=data
 
 
-def recognize_face(img):
+
+def recognize_face(img, model, train_images_encodings):
     """
-
+    It is to recognize the faces in the passed cropped images.
     :param img: pass the image to be recognized
     :return: returns "train_image_name" if the img_encodings match with any of the train_image_encodings
              returns "Unknown"-if the image is not found in database
     """
     try:
+      #print(face_recognition.face_locations(img))
       #Encode the cropped image
-      img_encodings = face_recognition.face_encodings(img)
+      img_encodings = face_recognition.face_encodings(img,None,1,model)
       for img_encoding in img_encodings:
-        match_results = []
-        for train_image_encodings in train_images_encodings:
-          match_results.append(face_recognition.compare_faces(train_image_encodings[0], img_encoding)[0])
-        name = "Unknown"
-        distances = []
-        if True in match_results:
-
+          match_results = []
           for train_image_encodings in train_images_encodings:
-            distance = face_recognition.face_distance(img_encoding, train_image_encodings[0])
-            distances.append([distance[0], train_image_encodings[1]])
-          distances.sort(key=lambda x: x[0])
-          name = distances[0][1]
+             match_results.append(face_recognition.compare_faces(train_image_encodings[0], img_encoding)[0])
+          name = "Unknown"
+          distances = []
+          if True in match_results:
+
+              for train_image_encodings in train_images_encodings:
+                distance = face_recognition.face_distance(img_encoding, train_image_encodings[0])
+                if (distance[0]<0.55):
+                 distances.append([distance[0], train_image_encodings[1]])
+              print('\n')
+              distances.sort(key=lambda x: x[0])
+              print("model:",model)
+              [ print(distances[i]) for i in [0,1,2,3,4]]
+              name = distances[0][1]
+
       return name
     except:
-        pass
+        return None
 
 
 def main():
     """
+    It is the main function which calls the functions for detection and recognition.
     :return: returns full-screen video display with boxes bounding the detected faces and names of the recognized faces
     """
     print("------------------ Soliton Face Recognition ------------------\n\n")
@@ -68,7 +79,7 @@ def main():
 
     #Explain what this xml file is
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    fps = cap.get(cv2.CAP_PROP_FPS)
+    #fps = cap.get(cv2.CAP_PROP_FPS)
     #print("Frames per second of webcam is: {0}".format(fps))
 
     print("Look into camera!")
@@ -95,10 +106,19 @@ def main():
                     #crop_img = img[y - constant :y + h + constant, x - constant:x + w - constant]
                     crop_img = img[y:y + h, x:x + w]
                     #pass the cropped image to function recognize()
-                    text = recognize_face(crop_img)
+                    #start_time=time.time()
+                    text_for_large = recognize_face(crop_img,"large",train_images_encodings_large)
+                    #if text_for_large is not None:
+                    # print("Time taken for recognition(model-large):\t{0}".format((time.time()-start_time)*1000))
+
+                    '''start_time = time.time()
+                    text_for_small = recognize_face(crop_img, "small", train_images_encodings_small)
+                    if text_for_small is not None:
+                        print("Time taken for recognition(model-small):\t{0}".format((time.time() - start_time) * 1000))'''
+
                     #create a filled box above the previous box and display the name recognized
                     cv2.rectangle(img, (x, y - 35), (x + w, y), (0, 255, 0), cv2.FILLED)
-                    cv2.putText(img, text, (x+6, y-6),cv2.FONT_HERSHEY_DUPLEX ,0.5, (255, 255, 255), 1)
+                    cv2.putText(img, text_for_large, (x+6, y-6),cv2.FONT_HERSHEY_DUPLEX ,0.5, (255, 255, 255), 1)
 
             window_name = 'Find Your Face :P'
             #Results are displayed in full screen
