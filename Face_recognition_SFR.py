@@ -3,15 +3,13 @@ SOLITON FACE RECOGNITION
 It is to recognize all the employees of Soliton using one-shot learning technique.
 
 """
-import os
-import cv2
+
 import face_recognition
 import time
 import numpy as np
-from PIL import Image
+#from PIL import Image
 import screeninfo
 import argparse
-import imutils
 import pickle
 import cv2
 
@@ -29,7 +27,7 @@ train_images_encodings_large=data
 
 
 
-def recognize_face(img, model, train_images_encodings):
+def recognize_face(img, model, train_images_encodings, first=None):
     """
     It is to recognize the faces in the passed cropped images.
     :param img: pass the image to be recognized
@@ -44,7 +42,7 @@ def recognize_face(img, model, train_images_encodings):
           match_results = []
           for train_image_encodings in train_images_encodings:
              match_results.append(face_recognition.compare_faces(train_image_encodings[0], img_encoding)[0])
-          name = "Unknown"
+          name = None
           distances = []
           if True in match_results:
 
@@ -52,11 +50,17 @@ def recognize_face(img, model, train_images_encodings):
                 distance = face_recognition.face_distance(img_encoding, train_image_encodings[0])
                 if (distance[0]<0.55):
                  distances.append([distance[0], train_image_encodings[1]])
-              print('\n')
+              #print('\n')
               distances.sort(key=lambda x: x[0])
-              print("model:",model)
-              [ print(distances[i]) for i in [0,1,2,3,4]]
-              name = distances[0][1]
+              #print("model:",model)
+              #[print(distances[i]) for i in [0,1,2,3,4]]
+              (first,second)=(distances[i] for i in [0,1])
+              diff=second[0]-first[0]
+              #print(diff)
+              if diff<0.01:
+                 name=None
+              else:
+                 name = distances[0][1]
 
       return name
     except:
