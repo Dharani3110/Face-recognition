@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c89dc7a3-b8cc-497d-993a-1ddb44e0dc7e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Face_recognition_SFR.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face_recognition_SFR.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,10 +16,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="1320">
+              <caret line="125" column="45" lean-forward="true" selection-start-line="125" selection-start-column="45" selection-end-line="125" selection-end-column="45" />
               <folding>
                 <element signature="e#118#141#0" expanded="true" />
+                <element signature="e#960#2486#0" />
+                <element signature="e#960#1256#1" />
               </folding>
             </state>
           </provider>
@@ -27,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/encode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="15">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -39,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/SFR_dev/lib/python3.5/site-packages/face_recognition/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
+            <state relative-caret-position="2955">
               <caret line="199" column="85" selection-start-line="199" selection-start-column="85" selection-end-line="199" selection-end-column="85" />
               <folding>
                 <element signature="e#25#41#0" expanded="true" />
@@ -78,7 +81,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="59" />
-    <option name="y" value="1076" />
+    <option name="y" value="-4" />
     <option name="width" value="1861" />
     <option name="height" value="1084" />
   </component>
@@ -118,7 +121,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="-4" width="1861" height="1084" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.22470076" />
@@ -161,79 +163,42 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/face_detector.py" />
     <entry file="file://$PROJECT_DIR$/encode_Dharani.py" />
-    <entry file="file://$PROJECT_DIR$/Face_detections.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/haar_crop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="42" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Face_Recognition_calling_APIs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="86" column="46" selection-start-line="86" selection-end-line="87" />
-          <folding>
-            <element signature="e#117#140#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detection_APIs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="60" column="78" lean-forward="true" selection-start-line="60" selection-start-column="78" selection-end-line="60" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Face_Recognition_with_APIs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Face_detections.py" />
+    <entry file="file://$PROJECT_DIR$/haar_crop.py" />
+    <entry file="file://$PROJECT_DIR$/Face_Recognition_calling_APIs.py" />
+    <entry file="file://$PROJECT_DIR$/Detection_APIs.py" />
+    <entry file="file://$PROJECT_DIR$/Face_Recognition_with_APIs.py" />
     <entry file="file://$USER_HOME$/SFR_dev/lib/python3.5/site-packages/face_recognition/face_recognition_cli.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/SFR_dev/lib/python3.5/site-packages/face_recognition/api.py">
+    <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="199" column="85" selection-start-line="199" selection-start-column="85" selection-end-line="199" selection-end-column="85" />
+        <state relative-caret-position="1320">
+          <caret line="125" column="45" lean-forward="true" selection-start-line="125" selection-start-column="45" selection-end-line="125" selection-end-column="45" />
           <folding>
-            <element signature="e#25#41#0" expanded="true" />
+            <element signature="e#118#141#0" expanded="true" />
+            <element signature="e#960#2486#0" />
+            <element signature="e#960#1256#1" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/encode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="15">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
+    <entry file="file://$USER_HOME$/SFR_dev/lib/python3.5/site-packages/face_recognition/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="2955">
+          <caret line="199" column="85" selection-start-line="199" selection-start-column="85" selection-end-line="199" selection-end-column="85" />
           <folding>
-            <element signature="e#118#141#0" expanded="true" />
+            <element signature="e#25#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

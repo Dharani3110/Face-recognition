@@ -6,28 +6,25 @@ from imutils import paths
 import argparse
 import pickle
 
-#Get encodings path and dataset path as arguments
+#Get dataset path and encodings path as arguments
 obj = argparse.ArgumentParser()
-obj.add_argument("-i", "--dataset", required=True,
-	help="path to input directory of faces + images")
-obj.add_argument("-e", "--encodings", required=True,
-	help="path to serialized db of facial encodings")
+#Input (python_filename -i path_to_dataset )as argument
+obj.add_argument("-i", "--dataset", required=True,help="path to input directory of faces + images")
+#Input (python_filename -e path_to_encodings )as argument
+obj.add_argument("-e", "--encodings", required=True,help="path to serialized db of facial encodings")
 args = vars(obj.parse_args())
 
+#Get the paths of the images as a list
 imagePaths = list(paths.list_images(args["dataset"]))
 data=[]
 for (i, imagePath) in enumerate(imagePaths):
-
-    # extract the person name from the image path
-    print("[INFO] processing image {}/{}".format(i + 1,len(imagePaths)))
+    print("[INFO] processing image {}/{}".format(i + 1, len(imagePaths)))
+    # extract the person name with folder name from the image path
     (img_name, ext) = os.path.splitext(imagePath)
-    (folder, name) = img_name.split("/")
-
-    # load the input image and convert it from RGB (OpenCV ordering)
-    # to dlib ordering (RGB)
+    (main_folder,folder,image_name) = img_name.split("/")
+    name=folder+"/"+image_name
     image = cv2.imread(imagePath)
-    #rgb= cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    # compute the facial embedding for the face
+    # compute the facial embedding for the image
     encoding = face_recognition.face_encodings(image)
     data.append([encoding,name])
 # dump the facial encodings + names to disk
