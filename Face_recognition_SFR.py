@@ -19,12 +19,14 @@ obj.add_argument("-e", "--encodings", required=True,help="path to serialized db 
 args = vars(obj.parse_args())
 
 #Read the encodings from the path_to_encodings provided above
-data= pickle.loads(open(args["encodings"], "rb").read())
-train_images_encodings=data
+data = pickle.loads(open(args["encodings"], "rb").read())
+train_images_encodings = data
+min_difference = 0.001
+tolerance = 0.48
+min_distance = 0.55
 
 
-
-def detect_resemblence(distances):
+def detect_resemblance(distances):
     """
     It is to overcome the effect of close resemblance between two persons
     :param distances:pass the list of distances with distance less than 0.55
@@ -36,15 +38,15 @@ def detect_resemblence(distances):
     (first, second) = (distances[i] for i in [0, 1])
     diff = second[0] - first[0]
     # print(diff)
-    if (diff < 0.01):
+    if (diff  <  min_difference):
         (first_folder,first_img)=first[1].split('/')
         (second_folder, second_img) = second[1].split('/')
-        if(first_folder!=second_folder):
+        if (first_folder != second_folder):
           return None
-        elif(first_folder==second_folder):
+        elif (first_folder == second_folder):
           return first_folder
     else:
-          (folder_name,img_name)=distances[0][1].split('/')
+          (folder_name, img_name) = distances[0][1].split('/')
           return folder_name
 
 
@@ -57,11 +59,11 @@ def recognize_face(img, model, train_images_encodings):
     """
     try:
       #Encode the cropped image
-      img_encodings = face_recognition.face_encodings(img,None,1,model)
-      for img_encoding in img_encodings:
+       img_encodings = face_recognition.face_encodings(img,None,1,model)
+       for img_encoding in img_encodings:
           match_results = []
           for train_image_encodings in train_images_encodings:
-             match_results.append(face_recognition.compare_faces(train_image_encodings[0], img_encoding,0.48)[0])
+             match_results.append(face_recognition.compare_faces(train_image_encodings[0], img_encoding,tolerance)[0])
           name = None
           distances = []
 
@@ -69,15 +71,16 @@ def recognize_face(img, model, train_images_encodings):
 
               for train_image_encodings in train_images_encodings:
                 distance = face_recognition.face_distance(img_encoding, train_image_encodings[0])
-                if (distance[0]<0.55):
+                if (distance[0] < min_distance):
                  distances.append([distance[0], train_image_encodings[1]])
-              distances.sort(key=lambda x: x[0])
-              name=detect_resemblence(distances)
+              distances.sort(key = lambda x: x[0])
+              name = detect_resemblance(distances)
 
 
-      return name
+       return name
+
     except:
-        return None
+       return None
 
 
 def main():
