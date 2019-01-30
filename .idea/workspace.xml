@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c89dc7a3-b8cc-497d-993a-1ddb44e0dc7e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Face_recognition_SFR.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face_recognition_SFR.py" afterDir="false" />
-    </list>
+    <list default="true" id="c89dc7a3-b8cc-497d-993a-1ddb44e0dc7e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,8 +88,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="68" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="70" />
     <option name="y" value="31" />
     <option name="width" value="1087" />
     <option name="height" value="993" />
@@ -134,7 +132,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="31" width="1087" height="993" extended-state="0" />
+    <frame x="70" y="31" width="1087" height="993" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
