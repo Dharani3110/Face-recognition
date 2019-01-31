@@ -42,7 +42,9 @@ def main():
 
     required_frames = 30
     count = 0
-    frame_number = 1
+    frame_number = 0
+    first_digit = 0
+    second_digit = 0
     output_filename='output.mp4'
     main_folder="train_frames"
 
@@ -68,10 +70,17 @@ def main():
 
             if ret == True:
               # Acquire required number of frames from the video file
-              if (count % int(frameCount / required_frames) == 0) and (frame_number < (required_frames + 1)):
+              if (count % int(frameCount / required_frames) == 0) and (frame_number < required_frames):
+
                 # save frame as JPEG file
-                cv2.imwrite(os.path.join(person_folder, sub_folder + "{0}.jpg".format(frame_number)), frame)
+                cv2.imwrite(os.path.join(person_folder, sub_folder + "{0}{1}.jpg".format(first_digit, second_digit)), frame)
+                print(first_digit,second_digit)
                 frame_number += 1
+                num = frame_number
+                second_digit += 1
+                if ( num % 10 == 0):
+                     first_digit += 1
+                     second_digit = 0
               count += 1
             else:
                 break

@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c89dc7a3-b8cc-497d-993a-1ddb44e0dc7e" name="Default Changelist" comment="" />
+    <list default="true" id="c89dc7a3-b8cc-497d-993a-1ddb44e0dc7e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/capture_frames_webcam.py" beforeDir="false" afterPath="$PROJECT_DIR$/capture_frames_webcam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S17.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S19.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S20.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S21.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S22.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S23.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S24.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S25.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S26.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S27.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S28.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S29.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S30.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_frames/Dharani S/Dharani S9.jpg" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1875">
+            <state relative-caret-position="1785">
               <caret line="125" column="45" selection-start-line="125" selection-start-column="45" selection-end-line="125" selection-end-column="45" />
               <folding>
                 <element signature="e#118#141#0" expanded="true" />
@@ -26,10 +58,7 @@
         <entry file="file://$PROJECT_DIR$/capture_frames_webcam.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="576">
-              <caret line="80" column="31" lean-forward="true" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
-              </folding>
+              <caret line="80" column="36" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -89,8 +118,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="70" />
-    <option name="y" value="31" />
+    <option name="x" value="137" />
+    <option name="y" value="14" />
     <option name="width" value="1087" />
     <option name="height" value="993" />
   </component>
@@ -98,10 +127,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -132,8 +158,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="31" width="1087" height="993" extended-state="0" />
-    <editor active="true" />
+    <frame x="137" y="14" width="1087" height="993" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.2238806" />
@@ -184,6 +209,17 @@
     <entry file="file://$USER_HOME$/SFR_dev/lib/python3.5/site-packages/face_recognition/face_recognition_cli.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/capture_frames.py" />
+    <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="125" column="45" selection-start-line="125" selection-start-column="45" selection-end-line="125" selection-end-column="45" />
+          <folding>
+            <element signature="e#118#141#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/encode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -204,33 +240,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/capture_frames.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#138#148#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Face_recognition_SFR.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1875">
-          <caret line="125" column="45" selection-start-line="125" selection-start-column="45" selection-end-line="125" selection-end-column="45" />
-          <folding>
-            <element signature="e#118#141#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/capture_frames_webcam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
-          <caret line="80" column="31" lean-forward="true" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
-          <folding>
-            <element signature="e#1#11#0" expanded="true" />
-          </folding>
+          <caret line="80" column="36" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
         </state>
       </provider>
     </entry>
