@@ -40,7 +40,7 @@ def main():
     :return: returns n frames as .jpg files
     """
 
-    required_frames = 30
+    required_frames = 100
     count = 0
     frame_number = 0
     first_digit = 0
@@ -74,7 +74,7 @@ def main():
 
                 # save frame as JPEG file
                 cv2.imwrite(os.path.join(person_folder, sub_folder + "{0}{1}.jpg".format(first_digit, second_digit)), frame)
-                print(first_digit,second_digit)
+                #print(first_digit,second_digit)
                 frame_number += 1
                 num = frame_number
                 second_digit += 1
