@@ -16,6 +16,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <cstdlib> // for exit function
+
 using std::cerr;
 using std::endl;
 using std::ofstream;
@@ -28,7 +29,6 @@ using namespace dlib;
 typedef std::vector<std::pair<std::string, std::string>> pairvec;
 std::vector<matrix<float,0,1>> face_descriptors;
 std::vector<std::pair< matrix<float,0,1>, std::string>> encodings_and_names;
-
 
 
 template <template <int,template<typename>class,int,typename> class block, int N, template<typename>class BN, typename SUBNET>
@@ -83,23 +83,19 @@ void read_directory(const std::string& path, pairvec& folders)
 // ----------------------------------------------------------------------------------------
  
 int main()
-{
+{   
     pairvec main_folders;
     pairvec imgs;
     std::string main_folder="train_images";
     read_directory(main_folder, main_folders);	
     for (size_t i = 0; i < main_folders.size(); i ++ )
 	    {
-	    
 	        read_directory(main_folders[i].second, imgs);
-	        
 	    }
 
     int j = 0;
-    for (int i = 0; i < 5; i ++ )
+    for (int i = 0; i < imgs.size(); i ++ )
     	{   
-    		       
-                    
 		            try
 		            {
 
@@ -122,26 +118,10 @@ int main()
 						    }
 						//cout<<imgs[i].first<<" "<<imgs[i].second<<endl;
 						face_descriptors= net(faces);
-						cout<<"Processing image-"<<++j<<endl;
+						cout<<"Processing image-"<<++j<<"/"+std::to_string(imgs.size())<<endl;
 						//cout<<++j << trans(face_descriptors[0])<<endl;
 	                    std::string image_path = imgs[i].second;
 	                    encodings_and_names.push_back(make_pair(face_descriptors[0], image_path));
-
-
-	                    ofstream outdata;
-						outdata.open("encodings_and_names.bin", ios::out | ios::binary); // opens the file
-					    if( !outdata )
-					     { 
-						      cerr << "Error: file could not be opened" << endl;
-						      exit(1);
-					     }
-                        std::vector<std::pair< matrix<float,0,1>, std::string>> ::const_iterator i;
-					    for(i=encodings_and_names.begin(); i != encodings_and_names.end();++i )
-					     {
-					          outdata << "[ " <<i->first << "," << i->second <<" ]"<< "\n";
-					     }
-
-                        outdata.close();
 					
 		    	    }
 
@@ -151,10 +131,30 @@ int main()
 		            }
 		     
         }
-   
+
+      
+
     //for (int i=0; i<5; ++i)
       //cout<<encodings_and_names[i].first<<" "<<encodings_and_names[i].second<<endl;
+    
 
+    ofstream outdata, names;
+	outdata.open("encodings_"+std::to_string(imgs.size())+".bin", ios::out | ios::binary); // opens the file
+	names.open("names_"+std::to_string(imgs.size())+".bin", ios::out | ios::binary);
+    if( !outdata || !names )
+     { 
+	      cerr << "Error: file could not be opened" << endl;
+	      exit(1);
+     }
+    std::vector<std::pair< matrix<float,0,1>, std::string>> ::const_iterator i;
+    for(i=encodings_and_names.begin(); i != encodings_and_names.end();++i )
+     {
+          outdata << i->first<<"\n";
+          names <<i->second<<"\n";
+     }
+
+    outdata.close();
+    names.close();
     return 0;
 
 }
