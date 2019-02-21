@@ -38,7 +38,6 @@ def capture_video(video_name):
 
 
 def folder_check(sub_folder):
-
     if not os.path.exists(main_folder):
         os.mkdir(main_folder)
     sub_folder_path = main_folder + "/" + sub_folder
@@ -92,7 +91,7 @@ def acquire_frames(video_filename,folder_name, required_frames, save_video):
     cap.release()
     print("\nFrames grabbed!")
     if not save_video:
-        os.remove(output_filename)
+        os.remove(video_filename)
     cv2.destroyAllWindows()
 
 
@@ -103,7 +102,7 @@ def main():
     :return: returns n frames as .jpg files
     """
     output_filename = 'output.mp4'
-    required_frames = 50
+    required_frames = 100
     save_video = False
     print('Enter the person name:\t')
     sub_folder = str(input())

@@ -33,3 +33,4 @@ print("[INFO] serializing encodings...")
 f = open(args["encodings"], "wb")
 f.write(pickle.dumps(data))
 f.close()
+
