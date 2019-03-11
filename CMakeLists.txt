@@ -1,15 +1,18 @@
+
+
 cmake_minimum_required(VERSION 2.8.12)
 set(CMAKE_CXX_STANDARD.11)
-add_subdirectory(../dlib dlib_build)
+find_package(OpenCV REQUIRED)
+find_package(dlib REQUIRED)
 
 macro(add name)
-   add_executable(${name} ${name}.cpp)
-   target_link_libraries(${name} dlib::dlib )
-   target_link_libraries(${name} opencv_core opencv_highgui opencv_imgproc opencv_objdetect opencv_videoio)
+  add_executable(${name} ${name}.cpp)
+  TARGET_LINK_LIBRARIES(${name} ${dlib_LIBRARIES})
+  INCLUDE_DIRECTORIES(${OpenCV_INCLUDE_DIR})
+  INCLUDE_DIRECTORIES(${dlib_INCLUDE_DIR})
+  TARGET_LINK_LIBRARIES(${name} ${OpenCV_LIBRARIES})
+
 
 endmacro()
 
-add(Face_recognition_SFR)
-#add(Encode_faces)
-
-
+add(Nuera_Face_recognition)
