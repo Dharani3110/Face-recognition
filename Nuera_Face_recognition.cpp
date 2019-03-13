@@ -20,13 +20,14 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cstdlib> // for exit function
 #include <cstddef> 
+#include <chrono> 
+
 
 using namespace std;
 using namespace cv;
 using namespace dlib;
 using std::cerr;
-using namespace std;
-
+using namespace std::chrono; 
 
 
 template <template <int,template<typename>class,int,typename> class block, int N, template<typename>class BN, typename SUBNET>
@@ -201,6 +202,7 @@ void detect_draw(Mat& processed_frame,Mat& frame, CascadeClassifier& cascade)
 	std::vector<Rect> faces;
 	std::vector<matrix<float,0,1>> face_descriptors;
 	str name;
+	auto start_recog = high_resolution_clock::now(); 
 	cascade.detectMultiScale(processed_frame, faces, 1.3,5);
 	if (faces.size() != 0)
 	{
@@ -216,8 +218,19 @@ void detect_draw(Mat& processed_frame,Mat& frame, CascadeClassifier& cascade)
 	      /*imshow("cropped_image", cropped_image);   
 	      waitKey(0);
 	      destroyAllWindows();*/
-          face_descriptors = encode_face(cropped_image);
+          auto start = high_resolution_clock::now(); 
+		 
+          face_descriptors = encode_face(cropped_image);//<======= Encode a face
+
+		  auto stop = high_resolution_clock::now();
+		  auto duration = duration_cast<milliseconds>(stop - start); 
+		  cout << "Total time taken: "<< duration.count() << " milliseconds" << endl; 
+
           name = recognize_faces(face_descriptors);
+          auto stop_recog = high_resolution_clock::now();
+          auto duration = duration_cast<milliseconds>(stop_recog - start_recog); 
+          cout << "Total time taken: "<< duration.count() << " milliseconds" << endl;
+
           cout<<name<<endl;
 	      cv::rectangle(frame, Point (x, y - 35),Point (x + w, y), Scalar(255, 0, 0), cv::FILLED);
           cv::putText(frame, name, Point (x + 6, y - 6),cv::FONT_HERSHEY_DUPLEX ,0.5, Scalar(255, 255, 255), 1);
@@ -227,9 +240,9 @@ void detect_draw(Mat& processed_frame,Mat& frame, CascadeClassifier& cascade)
 	//*****Enter code for processing the output i.e frame******
 
 
-    cv::imshow( "SFR", frame );
+    '''cv::imshow( "SFR", frame );
     cv::waitKey(0);
-	cv::destroyAllWindows();
+	cv::destroyAllWindows();'''
 }
 
 
@@ -250,6 +263,12 @@ int main()
 	Mat image = imread("/home/root/Face-recognition/3.jpeg", IMREAD_COLOR);  
 	
 	/* Face Recognition Algo */
-	face_recognition(image , cascade);
+	auto start = high_resolution_clock::now(); 
+    face_recognition(image , cascade);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start); 
+    cout << "Total time taken: "
+         << duration.count() << " milliseconds" << endl; 
+	
 	return 0;
 }
