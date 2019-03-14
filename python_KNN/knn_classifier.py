@@ -7,6 +7,9 @@ import numpy as np
 import time
 import tkinter as tk
 from tkinter import messagebox
+import first_win
+
+
 root = tk.Tk()
 root.withdraw()
 
@@ -178,14 +181,14 @@ def L2_distance_debugging(face_encoding, index_list):
     return database_list
 
 
-def pop_up(person_name, similar_person):
+def pop_up(person_name, ):
     MsgBox = tk.messagebox.askquestion(
         "Confirmation", "Hi! Are you "+person_name+" ?")
     if MsgBox == 'yes':
         tk.messagebox.showinfo('SFR', 'Welcome,'+person_name)
     if MsgBox == 'no':
         second_box = tk.messagebox.askyesno(
-            "Second chance", "Hi, are you "+similar_person+" ?")
+            "Second chance", "Are you anyone of these persons ?")
         if second_box:
             tk.messagebox.showinfo('SFR:)', 'Welcome,'+similar_person)
         else:
@@ -201,7 +204,7 @@ def face_recogniser():
     :return: It doesn't return anything.
     """
     # Initializes a variable for Video Capture
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(-1)
     display_width = 250
     last_name = None
     while True:
@@ -279,8 +282,12 @@ def face_recogniser():
                     frame = write_text(
                         frame, person_name, (cal_left + 6, cal_top - 6), frame_text_color)
                     #print(last_name, person_name)
-
+                   
                     if (person_name is not None) and (person_name != last_name):
+                            '''win = tk.Tk()
+                            main = first_win.create_Toplevel1(win)
+                            win.mainloop()'''
+                            
                             pop_up(person_name, similar_person)
                             last_name = person_name
 
