@@ -1,0 +1,13 @@
+Instructions:
+
+Database creation:
+
+1. To include a new image in database, create a folder with name, same as the person's name and place the image inside this folder.
+2. Place this current folder within "train_images" folder along with the rest of the folders.
+3. Now run "Encode_faces_Labview_supported.exe" to create encodings for the newly added images.
+
+Testing an image:
+
+1. To test an image i.e recognize the person in the image, place the image to be tested within "test_image" folder.
+2. Now run "Face_Recognition_Labview_supported.exe" to output the findings in "Recognition_results.xml".
+
