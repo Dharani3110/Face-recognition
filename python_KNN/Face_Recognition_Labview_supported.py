@@ -9,6 +9,7 @@ import distutils
 import sklearn.neighbors.typedefs
 import xml.etree.ElementTree as xml
 from imutils import paths
+import configparser
 
 # Load the Knn model
 knn = joblib.load('dependencies\knn_classifier_model.sav')
@@ -27,7 +28,10 @@ frame_rect_color = (0, 255, 0)
 frame_text_color = (0, 0, 0)
 
 # Tweak this parameter to get minimised false recognition
-min_distance = 0.46
+config = configparser.ConfigParser()
+config.read('dependencies\config.ini')
+min_distance = config.getfloat("Threshold_initialization",'min_distance')
+print("\nInitialized threshold: ",min_distance)
 
 
 def read_image(filename):
@@ -85,10 +89,12 @@ def L2_distance(face_encoding, index_list):
     database_list = [tuple([data[index][0], np.linalg.norm(
         face_encoding - data[index][1])]) for index in index_list]
     database_list.sort(key=lambda x: x[1])
+    #[print(i) for i in database_list]
+    print('\n')
     if database_list[0][1] > min_distance:
         duplicate = list(database_list[0])
-        #duplicate[0] = 'unknown'
-        duplicate[0] = None
+        duplicate[0] = 'Unknown' # If no distance is less than the min distance, name is considered as 'Unknown".
+        #duplicate[0] = None
         database_list.insert(0, tuple(duplicate))
     return database_list
 
@@ -99,8 +105,9 @@ def face_recogniser(frame):
     :return: It returns a .xml file with names and the locations of the persons detected.
     """
     start = time.time()
-    data = xml.Element('faces')
     faces = detector(frame, 1)
+    data = xml.Element('faces')
+    xml.SubElement(data, "faces_detected").text = str(len(faces))
     if len(faces) != 0:
         for face, d in enumerate(faces):
 
@@ -115,7 +122,6 @@ def face_recogniser(frame):
 
             # Calculate encodings of the face detected
             start_encode = time.time()
-            #face_descriptor = list(face_recognition_model.compute_face_descriptor(img, shape))
             face_descriptor = list(
                 face_recognition_model.compute_face_descriptor(frame, shape))
             print('\n')
