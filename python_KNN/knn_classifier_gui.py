@@ -6,12 +6,7 @@ import pickle
 import numpy as np
 import time
 import tkinter as tk
-from tkinter import messagebox
 import first_win
-
-
-#root = tk.Tk()
-#root.withdraw()
 
 # Load the Knn model
 knn = joblib.load('knn_classifier_model.sav')
@@ -181,20 +176,6 @@ def L2_distance_debugging(face_encoding, index_list):
     return database_list
 
 
-def pop_up(person_name, similar_person):
-    MsgBox = tk.messagebox.askquestion(
-        "Confirmation", "Hi! Are you "+person_name+" ?")
-    if MsgBox == 'yes':
-        tk.messagebox.showinfo('SFR', 'Welcome,'+person_name)
-    if MsgBox == 'no':
-        second_box = tk.messagebox.askyesno(
-            "Second chance", "Hi, are you "+similar_person+" ?")
-        if second_box:
-            tk.messagebox.showinfo('SFR:)', 'Welcome,'+similar_person)
-        else:
-            tk.messagebox.showinfo(
-                'Oops', 'Sorry, Lets retry to get your name right!')
-
 
 
 def face_recogniser():
@@ -281,20 +262,21 @@ def face_recogniser():
                         frame, (cal_left, cal_top - 30), (cal_right, cal_top), frame_rect_color, True)
                     frame = write_text(
                         frame, person_name, (cal_left + 6, cal_top - 6), frame_text_color)
-                    #print(last_name, person_name)
-                   
+
                     if (person_name is not None) and (person_name != last_name):
-                            win = tk.Tk()
-                            main = first_win.create_Toplevel1(win)
-                            win.mainloop()
-                            #pop_up(person_name, similar_person)
+                            root = tk.Tk()
+                            root.withdraw()
+                            win=first_win.create_Toplevel1(root,(person_name))
+                            #tk.Button(root, text="Quit", command=root.destroy)
+                            #third_win.create_second_win_no(root, (database_list[1][0], database_list[2][0],database_list[3][0], database_list[4][0], database_list[5][0])
+                            root.mainloop()
                             last_name = person_name
 
             image = debugging(image, display_width, big_database, faces)
             result = np.concatenate((frame, image), axis=1)
             # Display the frame in a window.
             #cv2.imshow('frame', result)
-            cv2.imshow('Frame: Press q to quit the frame', frame)
+            #cv2.imshow('Frame: Press q to quit the frame', frame)
             # Break the loop when 'q' is pressed
             if cv2.waitKey(25) & 0xff == ord('q'):
                 break
