@@ -35,6 +35,7 @@ def create_Toplevel1(root, *args, **kwargs):
     global w, w_win, rt
     rt = root
     w = tk.Toplevel (root)
+    #Argument is passed
     first_win_support.set_Tk_var(*args)
     top = Toplevel1 (w)
     first_win_support.init(w, top, *args, **kwargs)
